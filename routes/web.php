@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('cards', 'CardsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('categories', 'CategoriesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);

@@ -11,5 +11,7 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index');
+    $router->resource('card', 'CardController');
+    $router->resource('category', 'CategoryController');
 
 });
