@@ -7,6 +7,7 @@ class CreateCardsTable extends Migration
 {
 	public function up()
 	{
+	    //卡片
 		Schema::create('cards', function(Blueprint $table) {
             $table->increments('id');
             $table->string('title')->index()->comment('卡片标题');

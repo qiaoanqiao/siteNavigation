@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Card extends Model
 {
-    protected $fillable = ['name', 'describe', 'url', 'icon', 'logo', 'category_id', 'label', 'like', 'order'];
+    use SoftDeletes;
+
+    protected $fillable = ['title', 'describe', 'url', 'icon', 'logo', 'category_id', 'label', 'like', 'order'];
 
 
 }

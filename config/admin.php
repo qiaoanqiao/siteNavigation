@@ -5,17 +5,17 @@
         /*
          * 站点标题
          */
-        'name' => 'Laravel Shop',
+        'name' => 'SiteNavigation',
 
         /*
          * 页面顶部 Logo
          */
-        'logo' => '<b>navigation</b> Shop',
+        'logo' => '<b>Site</b> Navigation',
 
         /*
          * 页面顶部小 Logo
          */
-        'logo-mini' => '<b>NV</b>',
+        'logo-mini' => '<b>SN</b>',
 
         /*
          * 路由配置
@@ -37,7 +37,7 @@
         /*
          * Laravel-Admin 页面标题
          */
-        'title' => 'Laravel Shop 管理后台',
+        'title' => 'Site Navigation 管理后台',
 
         /*
          * 是否使用 https

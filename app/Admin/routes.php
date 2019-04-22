@@ -13,5 +13,6 @@ Route::group([
     $router->get('/', 'HomeController@index');
     $router->resource('card', 'CardController');
     $router->resource('category', 'CategoryController');
+    $router->resource('link', 'LinkController');
 
 });

@@ -14,47 +14,54 @@ class CardsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-	public function index()
-	{
-		$cards = Card::paginate();
-		return view('cards.index', compact('cards'));
-	}
+    public function index()
+    {
+        $cards = Card::paginate();
+
+        return view('cards.index', compact('cards'));
+    }
+
 
     public function show(Card $card)
     {
         return view('cards.show', compact('card'));
     }
 
-	public function create(Card $card)
-	{
-		return view('cards.create_and_edit', compact('card'));
-	}
+    public function create(Card $card)
+    {
+        return view('cards.create_and_edit', compact('card'));
+    }
 
-	public function store(CardRequest $request)
-	{
-		$card = Card::create($request->all());
-		return redirect()->route('cards.show', $card->id)->with('message', 'Created successfully.');
-	}
+    public function store(CardRequest $request)
+    {
+        $card = Card::create($request->all());
 
-	public function edit(Card $card)
-	{
+        return redirect()->route('cards.show', $card->id)->with('message',
+            'Created successfully.');
+    }
+
+    public function edit(Card $card)
+    {
         $this->authorize('update', $card);
-		return view('cards.create_and_edit', compact('card'));
-	}
 
-	public function update(CardRequest $request, Card $card)
-	{
-		$this->authorize('update', $card);
-		$card->update($request->all());
+        return view('cards.create_and_edit', compact('card'));
+    }
 
-		return redirect()->route('cards.show', $card->id)->with('message', 'Updated successfully.');
-	}
+    public function update(CardRequest $request, Card $card)
+    {
+        $this->authorize('update', $card);
+        $card->update($request->all());
 
-	public function destroy(Card $card)
-	{
-		$this->authorize('destroy', $card);
-		$card->delete();
+        return redirect()->route('cards.show', $card->id)->with('message',
+            'Updated successfully.');
+    }
 
-		return redirect()->route('cards.index')->with('message', 'Deleted successfully.');
-	}
+    public function destroy(Card $card)
+    {
+        $this->authorize('destroy', $card);
+        $card->delete();
+
+        return redirect()->route('cards.index')->with('message',
+            'Deleted successfully.');
+    }
 }

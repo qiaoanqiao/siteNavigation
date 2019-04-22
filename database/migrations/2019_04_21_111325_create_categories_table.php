@@ -7,6 +7,7 @@ class CreateCategoriesTable extends Migration
 {
 	public function up()
 	{
+	    //卡片分类
 		Schema::create('categories', function(Blueprint $table) {
             $table->increments('id');
             $table->string('title')->comment('栏目标题');

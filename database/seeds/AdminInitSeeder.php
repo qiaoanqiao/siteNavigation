@@ -141,6 +141,13 @@
                     'title' => '卡片管理',
                     'icon' => 'fa-credit-card',
                     'uri' => 'card',
+                ],
+                [
+                    'parent_id' => 0,
+                    'order' => 10,
+                    'title' => '友情链接',
+                    'icon' => 'fa-external-link',
+                    'uri' => 'link',
                 ]
             ]);
 
