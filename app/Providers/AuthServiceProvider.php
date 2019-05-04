@@ -13,6 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+		 \App\Models\Option::class => \App\Policies\OptionPolicy::class,
 		 \App\Models\CardReferee::class => \App\Policies\CardRefereePolicy::class,
 		 \App\Models\Link::class => \App\Policies\LinkPolicy::class,
 		 \App\Models\Category::class => \App\Policies\CategoryPolicy::class,

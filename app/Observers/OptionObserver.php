@@ -2,20 +2,19 @@
 
 namespace App\Observers;
 
-use App\Models\Card;
-use Illuminate\Support\Facades\Cache;
+use App\Models\Option;
 
 // creating, created, updating, updated, saving,
 // saved,  deleting, deleted, restoring, restored
 
-class CardObserver
+class OptionObserver
 {
-    public function creating(Card $card)
+    public function creating(Option $option)
     {
-
+        //
     }
 
-    public function updating(Card $card)
+    public function updating(Option $option)
     {
         //
     }

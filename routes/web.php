@@ -20,3 +20,4 @@ Route::resource('categories', 'CategoriesController', ['only' => ['index', 'show
 Route::resource('links', 'LinksController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 Route::resource('card_referees', 'Card_refereesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 Route::resource('card_referees', 'CardRefereesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('options', 'OptionsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);

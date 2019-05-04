@@ -7,6 +7,7 @@ use App\Models\Card;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CardRequest;
+use Illuminate\Support\Facades\Cache;
 
 class CardsController extends Controller
 {
@@ -16,8 +17,10 @@ class CardsController extends Controller
      */
     public function index()
     {
-        $cards = Card::query()->paginate();
-        dd($cards);
+        $wheres = [];
+
+        $cards = Card::accessToApiInterfaceCardInList($wheres);
+
         return new CardCollection($cards);
     }
 
