@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CardCollection;
 use App\Models\Card;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,16 +10,15 @@ use App\Http\Requests\CardRequest;
 
 class CardsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
-    }
-
+    /**
+     * 卡片列表
+     * @return CardCollection
+     */
     public function index()
     {
-        $cards = Card::paginate();
-
-        return view('cards.index', compact('cards'));
+        $cards = Card::query()->paginate();
+        dd($cards);
+        return new CardCollection($cards);
     }
 
 

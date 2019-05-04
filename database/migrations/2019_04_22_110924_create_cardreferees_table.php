@@ -7,6 +7,7 @@ class CreateCardRefereesTable extends Migration
 {
     public function up()
     {
+        // 卡片推荐人
         Schema::create('card_referees', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable();
