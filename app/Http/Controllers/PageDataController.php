@@ -3,13 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\HomePageDataRequest;
+use App\Models\Card;
+use App\Models\Category;
+use App\Models\Option;
 use Illuminate\Http\Request;
 
 class PageDataController extends Controller
 {
+    /**
+     * 首页数据获取
+     *
+     * @param  HomePageDataRequest  $request
+     *
+     * @return array
+     */
     public function homePage(HomePageDataRequest $request)
     {
+        $options = getOption('siteurl', 'homeurl', 'sitename',
+            'sitedescription', 'sitelogo', 'defaultlanguage');
 
+        $recommended_cards = Card::where('reco',
+            modelConfig('card', 'reco_str_int', 'recommended'))->get()
+            ->toArray();
+        $cards = Category::with('cards')->where('parent_id', 0)->get()
+            ->toArray();
+        return apiSuccessfulResponseData(compact('options', 'recommended_cards', 'cards'));
     }
 
     /**
@@ -26,6 +44,7 @@ class PageDataController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -37,6 +56,7 @@ class PageDataController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -48,6 +68,7 @@ class PageDataController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -60,6 +81,7 @@ class PageDataController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -71,6 +93,7 @@ class PageDataController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
