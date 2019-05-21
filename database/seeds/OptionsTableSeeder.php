@@ -14,7 +14,7 @@ class OptionsTableSeeder extends Seeder
             ['name' => 'sitedescription', 'value' => '导航'],//网站描述
             ['name' => 'sitelogo', 'value' => '/logo.png'],//网站logo
             ['name' => 'defaultlanguage', 'value' => config('parameter_table.options.language')[0]],//默认语言
-            ['name' => 'cache_time', 'value' => '10'],//缓存时长(分钟)
+            ['name' => 'cache_time', 'value' => 600],//缓存时长(s)
         ];
 
         Option::insert($options);

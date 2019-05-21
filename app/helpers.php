@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Cache;
+
 /**
  * @param  string  $databaseName  数据库名称(单数)
  * @param  string  $fieldName  字段名称
@@ -83,4 +86,10 @@ function apiErrorResponseException($message = '出现错误', $code = 500)
 
     }
 
+}
+
+function joinCache(string $key, $callback, $ttl = 0)
+{
+    return Cache::remember($key, $ttl ?: getOption('cache_time'),
+        $callback);
 }

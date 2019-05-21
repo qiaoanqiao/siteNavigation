@@ -19,7 +19,7 @@ class CreateCardsTable extends Migration
             $table->string('label')->nullable()->comment('标签');
             $table->boolean('like')->unsigned()->index()->comment('喜欢');
             $table->integer('order')->unsigned()->default(0)->comment('排序');
-            $table->boolean('reco')->default(0)->unsigned()->comment('是否推荐');
+            $table->integer('clicks')->default(0)->comment('点击数');
             $table->softDeletes();
             $table->timestamps();
         });

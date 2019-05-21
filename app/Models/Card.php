@@ -11,6 +11,16 @@ class Card extends Model
 {
     use SoftDeletes;
 
+    /**
+     * 这个属性应该被转换为原生类型.
+     *
+     * @var array
+     */
+    protected $casts
+        = [
+            'label' => 'array',
+        ];
+
     protected $fillable
         = [
             'title',
@@ -34,7 +44,7 @@ class Card extends Model
      */
     public static function accessToApiInterfaceCardInList(array $wheres)
     {
-        return Cache::remember(request()->route()->getAction('as'), 300,
+        return joinCache(request()->route()->getAction('as'),
             function () use ($wheres) {
                 return self::query()->where($wheres)->orderBy('order', 'desc')
                     ->get();
@@ -48,7 +58,7 @@ class Card extends Model
      */
     public function getRecommendationsCards()
     {
-        return Cache::remember('recommend_all_cards', cacheTime(),
+        return joinCache('recommend_all_cards',
             function () {
                 return self::query()
                     ->where('reco',
@@ -64,27 +74,13 @@ class Card extends Model
      */
     public function toObtainRecommendedCards()
     {
-        return Cache::remember('not_recommend_all_cards', 300,
+        return joinCache('not_recommend_all_cards',
             function () {
                 return self::query()
                     ->whereNotIn('reco',
                         modelConfig('card', 'reco_str_int', 'recommended'))
                     ->get();
             });
-    }
-
-    /**
-     *模型的「启动」方法.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('order', function (Builder $builder) {
-            $builder->orderBy('order', 'desc');
-        });
     }
 
 }

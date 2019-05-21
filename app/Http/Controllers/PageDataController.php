@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\HomePageDataRequest;
+use App\Http\Resources\CardCollection;
+use App\Http\Resources\CategoryCollection;
+use App\Http\Resources\LinkCollection;
 use App\Models\Card;
 use App\Models\Category;
+use App\Models\Link;
 use App\Models\Option;
 use Illuminate\Http\Request;
 
@@ -19,15 +23,33 @@ class PageDataController extends Controller
      */
     public function homePage(HomePageDataRequest $request)
     {
-        $options = getOption('siteurl', 'homeurl', 'sitename',
+        $optionData = getOption('siteurl', 'homeurl', 'sitename',
             'sitedescription', 'sitelogo', 'defaultlanguage');
 
-        $recommended_cards = Card::where('reco',
-            modelConfig('card', 'reco_str_int', 'recommended'))->get()
-            ->toArray();
-        $cards = Category::with('cards')->where('parent_id', 0)->get()
-            ->toArray();
-        return apiSuccessfulResponseData(compact('options', 'recommended_cards', 'cards'));
+        $categoryModels = Category::with('cards')->Ordered()->get();
+        $categoryData = (new CategoryCollection($categoryModels))->toArray($request);
+
+        $categoryDataTree = $this->getTree($categoryData);
+        $linkModels = Link::all();
+        $linkData = new LinkCollection($linkModels);
+
+        return apiSuccessfulResponseData(compact('linkData', 'optionData', 'categoryData', 'categoryDataTree'));
+    }
+
+
+    public function getTree($data = [], $parent_id = 0, $level = 0)
+    {
+        $tree = [];
+        if ($data && is_array($data)) {
+            foreach ($data as $v) {
+                if ($v['parent_id'] == $parent_id) {
+                    $v['children'] = $this->getTree($data, $v['id'], $level + 1);
+                    $tree[] = $v;
+                }
+            }
+        }
+
+        return $tree;
     }
 
     /**

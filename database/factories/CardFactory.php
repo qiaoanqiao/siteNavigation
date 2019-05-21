@@ -24,7 +24,7 @@ $factory->define(App\Models\Card::class, function (Faker $faker) {
         'icon' => '',
         'logo' => '',
 //        $table->integer('category_id')->unsigned()->index()->comment('分类id');
-        'label' => "['" . $faker->title . ",".$faker->title."']",
+        'label' => "['" . $faker->title . "','".$faker->title."']",
         'like' => random_int(0, 100),
         'order' => random_int(0, 100),
         'reco' => random_int(0, 1),

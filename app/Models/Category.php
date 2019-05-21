@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Encore\Admin\Traits\AdminBuilder;
+use Encore\Admin\Traits\ModelTree;
 
 class Category extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, ModelTree, AdminBuilder;
 
     protected $fillable = ['title', 'parent_id', 'order', 'icon'];
 
@@ -15,6 +17,6 @@ class Category extends Model
      */
     public function cards()
     {
-        return $this->hasMany(Card::class, 'category_id','id');
+        return $this->hasMany(Card::class, 'category_id', 'id');
     }
 }

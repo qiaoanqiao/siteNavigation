@@ -19,9 +19,9 @@ class Option extends Model
     public static function getOption($arguments)
     {
         $options
-            = Cache::remember('configure_cache', 1440, function () {
+            = joinCache('configure_cache', function () {
             return Option::query()->get()->pluck('value', 'name')->toArray();
-        });
+        }, 1400);
         if (empty($arguments)) {
             return $options;
         }

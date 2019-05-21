@@ -14,6 +14,12 @@ class LinkCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return $this->collection->map(function ($item, $key) {
+            return [
+                'title' => $item->title,
+                'url'   => $item->url,
+                'icon'  => $item->icon,
+            ];
+        })->toArray();
     }
 }

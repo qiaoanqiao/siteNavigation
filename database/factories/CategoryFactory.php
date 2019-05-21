@@ -16,6 +16,7 @@ $factory->define(App\Models\Category::class, function (Faker $faker) {
 //        'parent_id' => random,
         'order' => random_int(0, 100),
         'icon' => '',
+        'udid' => $faker->unique()->firstName,
         'created_at' => $date_time,
         'updated_at' => $date_time,
     ];
