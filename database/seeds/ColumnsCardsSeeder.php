@@ -3,7 +3,6 @@
 use App\Models\CardReferee;
 use App\Models\Category;
 use App\Models\Link;
-use Faker\Generator;
 use Illuminate\Database\Seeder;
 
 class ColumnsCardsSeeder extends Seeder

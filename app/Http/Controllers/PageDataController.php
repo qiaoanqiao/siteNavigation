@@ -3,17 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\HomePageDataRequest;
-use App\Http\Resources\CardCollection;
 use App\Http\Resources\CategoryCollection;
 use App\Http\Resources\LinkCollection;
-use App\Models\Card;
 use App\Models\Category;
 use App\Models\Link;
-use App\Models\Option;
 use Illuminate\Http\Request;
 
 class PageDataController extends Controller
 {
+    public function indexView(Request $request)
+    {
+        $data = $this->homePage($request);
+
+        return view('index.index', $data);
+    }
+
+    public function getIndexData() : array
+    {
+
+    }
+
     /**
      * 首页数据获取
      *
@@ -21,19 +30,21 @@ class PageDataController extends Controller
      *
      * @return array
      */
-    public function homePage(HomePageDataRequest $request)
+    public function homePage(Request $request, $isApi = 0)
     {
         $optionData = getOption('siteurl', 'homeurl', 'sitename',
             'sitedescription', 'sitelogo', 'defaultlanguage');
-
         $categoryModels = Category::with('cards')->Ordered()->get();
-        $categoryData = (new CategoryCollection($categoryModels))->toArray($request);
-
-        $categoryDataTree = $this->getTree($categoryData);
         $linkModels = Link::all();
-        $linkData = new LinkCollection($linkModels);
+        $categoryData = (new CategoryCollection($categoryModels))->toArray($request);
+        $categoryDataTree = $this->getTree($categoryData);
+        if($isApi) {
+            $linkData = new LinkCollection($linkModels);
+            return apiSuccessfulResponseData(compact('linkData', 'optionData',
+                'categoryData', 'categoryDataTree'));
+        }
 
-        return apiSuccessfulResponseData(compact('linkData', 'optionData', 'categoryData', 'categoryDataTree'));
+        return compact('optionData', 'categoryDataTree', 'categoryData', 'linkModels');
     }
 
 

@@ -12,7 +12,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(AdminInitSeeder::class);
-		$this->call(ColumnsCardsSeeder::class);
-		$this->call(OptionsTableSeeder::class);
+        $this->call(ColumnsCardsSeeder::class);
+        $this->call(OptionsTableSeeder::class);
+        \Encore\Admin\Media\MediaManager::import();
+        \Encore\Admin\Helpers\Helpers::import();
     }
 }

@@ -1,10 +1,10 @@
 <?php
 return [
     'options' => [
-        'language'  => [
+        'language' => [
             'CN',
         ],
     ],
-    'card' => [
-    ]
+    'card'    => [
+    ],
 ];

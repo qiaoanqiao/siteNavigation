@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CardRequest;
 use App\Http\Resources\CardCollection;
 use App\Models\Card;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CardRequest;
-use Illuminate\Support\Facades\Cache;
 
 class CardsController extends Controller
 {

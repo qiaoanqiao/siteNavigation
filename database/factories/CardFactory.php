@@ -27,7 +27,7 @@ $factory->define(App\Models\Card::class, function (Faker $faker) {
         'label' => "['" . $faker->title . "','".$faker->title."']",
         'like' => random_int(0, 100),
         'order' => random_int(0, 100),
-        'reco' => random_int(0, 1),
+//        'reco' => random_int(0, 1),
         'created_at' => $date_time,
         'updated_at' => $date_time,
     ];

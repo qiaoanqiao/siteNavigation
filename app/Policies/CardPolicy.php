@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Card;
+use App\Models\User;
 
 class CardPolicy extends Policy
 {

@@ -91,7 +91,7 @@ class CardController extends Controller
         $grid->label('Label');
         $grid->like('Like');
         $grid->order('Order');
-        $grid->reco('Reco');
+        $grid->clicks('Clicks');
         $grid->deleted_at('Deleted at');
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
@@ -119,7 +119,7 @@ class CardController extends Controller
         $show->label('Label');
         $show->like('Like');
         $show->order('Order');
-        $show->reco('Reco');
+        $show->clicks('Clicks');
         $show->deleted_at('Deleted at');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
@@ -145,7 +145,7 @@ class CardController extends Controller
         $form->text('label', 'Label');
         $form->switch('like', 'Like');
         $form->number('order', 'Order');
-        $form->switch('reco', 'Reco');
+        $form->number('clicks', 'Clicks');
 
         return $form;
     }

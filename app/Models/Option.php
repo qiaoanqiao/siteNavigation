@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use Exception;
-use Illuminate\Support\Facades\Cache;
-
 class Option extends Model
 {
     protected $fillable = ['name', 'value'];
@@ -26,7 +23,7 @@ class Option extends Model
             return $options;
         }
 
-        if(count($arguments) > 1) {
+        if (count($arguments) > 1) {
             return array_intersect_key($options, array_flip($arguments));
         }
 

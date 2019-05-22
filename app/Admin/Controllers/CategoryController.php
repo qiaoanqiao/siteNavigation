@@ -86,6 +86,7 @@ class CategoryController extends Controller
         $grid->parent_id('Parent id');
         $grid->order('Order');
         $grid->icon('Icon');
+        $grid->udid('Udid');
         $grid->deleted_at('Deleted at');
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
@@ -108,6 +109,7 @@ class CategoryController extends Controller
         $show->parent_id('Parent id');
         $show->order('Order');
         $show->icon('Icon');
+        $show->udid('Udid');
         $show->deleted_at('Deleted at');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
@@ -128,6 +130,7 @@ class CategoryController extends Controller
         $form->number('parent_id', 'Parent id');
         $form->number('order', 'Order');
         $form->text('icon', 'Icon');
+        $form->text('udid', 'Udid');
 
         return $form;
     }

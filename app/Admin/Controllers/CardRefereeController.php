@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\CardReferee;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -9,7 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class ExampleController extends Controller
+class CardRefereeController extends Controller
 {
     use HasResourceActions;
 
@@ -30,7 +31,7 @@ class ExampleController extends Controller
     /**
      * Show interface.
      *
-     * @param mixed   $id
+     * @param mixed $id
      * @param Content $content
      * @return Content
      */
@@ -45,7 +46,7 @@ class ExampleController extends Controller
     /**
      * Edit interface.
      *
-     * @param mixed   $id
+     * @param mixed $id
      * @param Content $content
      * @return Content
      */
@@ -78,9 +79,20 @@ class ExampleController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new YourModel);
+        $grid = new Grid(new CardReferee);
 
-        $grid->id('ID')->sortable();
+        $grid->id('Id');
+        $grid->title('Title');
+        $grid->describe('Describe');
+        $grid->category_title('Category title');
+        $grid->icon('Icon');
+        $grid->url('Url');
+        $grid->user_id('User id');
+        $grid->nickname('Nickname');
+        $grid->homepage('Homepage');
+        $grid->contact('Contact');
+        $grid->label('Label');
+        $grid->deleted_at('Deleted at');
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
 
@@ -90,14 +102,25 @@ class ExampleController extends Controller
     /**
      * Make a show builder.
      *
-     * @param mixed   $id
+     * @param mixed $id
      * @return Show
      */
     protected function detail($id)
     {
-        $show = new Show(YourModel::findOrFail($id));
+        $show = new Show(CardReferee::findOrFail($id));
 
-        $show->id('ID');
+        $show->id('Id');
+        $show->title('Title');
+        $show->describe('Describe');
+        $show->category_title('Category title');
+        $show->icon('Icon');
+        $show->url('Url');
+        $show->user_id('User id');
+        $show->nickname('Nickname');
+        $show->homepage('Homepage');
+        $show->contact('Contact');
+        $show->label('Label');
+        $show->deleted_at('Deleted at');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
 
@@ -111,11 +134,18 @@ class ExampleController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new YourModel);
+        $form = new Form(new CardReferee);
 
-        $form->display('id', 'ID');
-        $form->display('created_at', 'Created At');
-        $form->display('updated_at', 'Updated At');
+        $form->text('title', 'Title');
+        $form->text('describe', 'Describe');
+        $form->text('category_title', 'Category title');
+        $form->text('icon', 'Icon');
+        $form->url('url', 'Url');
+        $form->number('user_id', 'User id');
+        $form->text('nickname', 'Nickname');
+        $form->text('homepage', 'Homepage');
+        $form->text('contact', 'Contact');
+        $form->text('label', 'Label');
 
         return $form;
     }

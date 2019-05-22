@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\Card;
-use Illuminate\Support\Facades\Cache;
 
 // creating, created, updating, updated, saving,
 // saved,  deleting, deleted, restoring, restored
