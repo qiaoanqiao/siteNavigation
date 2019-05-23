@@ -9,16 +9,6 @@ class Card extends Model
 {
     use SoftDeletes;
 
-    /**
-     * 这个属性应该被转换为原生类型.
-     *
-     * @var array
-     */
-    protected $casts
-        = [
-            'label' => 'array',
-        ];
-
     protected $fillable
         = [
             'title',

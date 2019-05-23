@@ -16,6 +16,20 @@ class OptionObserver
 
     public function updating(Option $option)
     {
-        //
+//        $update = array_diff_key($option->getAttributes(), $option->getOriginal());
+//        foreach($update as $key => $value) {
+//            $optionUpdate = $option->newQuery()->where('name', $key)->first();
+//
+//            if(!empty($optionUpdate)) {
+//                $option->offsetUnset($key);
+//                $optionUpdate->update(['value' => $value]);
+//            }
+//
+//        }
+    }
+
+    public function updated(Option $option)
+    {
+
     }
 }

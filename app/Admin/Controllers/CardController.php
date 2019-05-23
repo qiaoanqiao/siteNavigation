@@ -162,7 +162,7 @@ class CardController extends Controller
 
         $form->text('title', '卡片标题')->rules('required');
         $form->textarea('describe', '描述')->rules('nullable');
-        $form->url('url', '网站地址')->rules('required', 'url');
+        $form->url('url', '网站地址')->rules('required');
         $form->icon('icon', trans('admin.icon'))->rules('nullable')->default('fa-bars')
             ->rules('required')->help($this->iconHelp());
         $form->image('logo', '网站logo')->removable()->rules('required');

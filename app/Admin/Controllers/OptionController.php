@@ -10,6 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Encore\Admin\Widgets\Tab;
+use Illuminate\Support\Facades\Input;
 
 class OptionController extends Controller
 {
@@ -18,7 +19,8 @@ class OptionController extends Controller
     /**
      * Index interface.
      *
-     * @param Content $content
+     * @param  Content  $content
+     *
      * @return Content
      */
     public function index(Content $content)
@@ -32,8 +34,9 @@ class OptionController extends Controller
     /**
      * Show interface.
      *
-     * @param mixed $id
-     * @param Content $content
+     * @param  mixed  $id
+     * @param  Content  $content
+     *
      * @return Content
      */
     public function show($id, Content $content)
@@ -47,8 +50,8 @@ class OptionController extends Controller
     /**
      * Edit interface.
      *
-     * @param mixed $id
-     * @param Content $content
+     * @param  mixed  $id
+     * @param  Content  $content
      *
      * @return Form
      */
@@ -60,7 +63,8 @@ class OptionController extends Controller
     /**
      * Create interface.
      *
-     * @param Content $content
+     * @param  Content  $content
+     *
      * @return Content
      */
     public function create(Content $content)
@@ -79,8 +83,8 @@ class OptionController extends Controller
     protected function grid()
     {
         $tab = new Tab();
-        foreach(Option::all() as $option) {
-            if($option->parent_id === 0) {
+        foreach (Option::all() as $option) {
+            if ($option->parent_id === 0) {
                 $tab->add($option->name, $this->edit($option->id)->render());
             }
 
@@ -98,7 +102,8 @@ class OptionController extends Controller
     /**
      * Make a show builder.
      *
-     * @param mixed $id
+     * @param  mixed  $id
+     *
      * @return Show
      */
     protected function detail($id)
@@ -114,13 +119,32 @@ class OptionController extends Controller
         return $show;
     }
 
-    public function store()
-    {
-    }
-
+//    public function store()
+//    {
+//    }
+//
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function update($id)
     {
-        dd(request()->all());
+        $requetInput = request()->except(['_token', '_method', '_previous_']);
+        foreach ($requetInput as $key =>  $value) {
+            $model = Option::query()->where('name', $key)->where('parent_id', $id)->first();
+            if(!empty($model)) {
+                if($model->value !== $value) {
+                    (new OptionController())->form($model->id, 1)->update($model->id);
+                }
+            }
+            \DB::commit();
+        }
+        admin_toastr(trans('admin.save_succeeded'));
+
+        return back();
     }
 
     /**
@@ -128,28 +152,26 @@ class OptionController extends Controller
      *
      * @return Form
      */
-    protected function form($id)
+    public function form($id, $isMethod = 0)
     {
         $form = new Form(new Option);
         $form->setAction(action([self::class, 'update'],
             ['id' => $id]));
-        $childId = Option::buildSelectOptions([], $id);
-        $optionChildData = Option::query()->whereIn('id', array_keys($childId))->get();
-        $form->hasMany('children', function (Form\NestedForm $form) use ($optionChildData) {
-//            foreach ($optionChildData as $value) {
-//                $typeMethod = $value['type'];
-//                $form->$typeMethod($value['name'], $value['describe'])
-//                    ->value($value['value']);
-//            }
-//            $form->$typeMethod($value['name'], $value['describe'])
-//                ->value($value['value']);
+        if($isMethod) {
+            $value = Option::find($id);
+            $typeMethod = $value['type'];
+            $form->$typeMethod($value['name']);
+        } else {
+            $childId = Option::buildSelectOptions([], $id);
+            $optionChildData = Option::query()
+                ->whereIn('id', array_keys($childId))->get();
             foreach ($optionChildData as $value) {
                 $typeMethod = $value['type'];
                 $form->$typeMethod($value['name'], $value['describe'])
-                    ->value($value['value']);
+                    ->default($value['value']);
             }
-            //todo 待完成
-        });
+        }
+
 
 
         return $form;
