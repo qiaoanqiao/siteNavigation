@@ -3,11 +3,11 @@
     <header class="logo-env">
       <!-- logo -->
       <div class="logo">
-        <a href="{{$optionData['siteurl']}}" class="logo-expanded">
-          <img src="{{$optionData['sitelogo']}}" width="100%" alt=""/>
+        <a href="{{$optionData['site_url']}}" class="logo-expanded">
+          <img src="{{$optionData['site_logo']}}" width="100%" alt=""/>
         </a>
-        <a href="{{$optionData['siteurl']}}" class="logo-collapsed">
-          <img src="{{$optionData['sitelogo']}}" width="40" alt=""/>
+        <a href="{{$optionData['site_url']}}" class="logo-collapsed">
+          <img src="{{$optionData['site_logo']}}" width="40" alt=""/>
         </a>
       </div>
       <div class="mobile-menu-toggle visible-xs">

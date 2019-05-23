@@ -7,8 +7,8 @@
     <!-- Add your copyright text here -->
     <div class="footer-text">
       &copy; 2017
-      <a href="../about.html"><strong>WebStack</strong></a> design by <a href="http://viggoz.com"
-                                                                            target="_blank"><strong>Viggo</strong></a>
+      <a href="https://github.com/WebStackPage/WebStackPage.github.io"><strong>WebStack</strong></a> design by <a href="https://www.fenxiangy.com"
+                                                                            target="_blank"><strong>Murry</strong></a>
       <!--  - Purchase for only <strong>23$</strong> -->
     </div>
     <!-- Go to Top Link, just add rel="go-top" to any link to add this functionality -->

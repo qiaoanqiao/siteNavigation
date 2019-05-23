@@ -24,27 +24,25 @@
               <i class="fa-bars"></i>
             </a>
           </li>
-          <li class="dropdown hover-line language-switcher">
-            <a href="../cn/index.html" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../assets/images/flags/flag-cn.png" alt="flag-cn"/> Chinese
-            </a>
-            <ul class="dropdown-menu languages">
-              <li>
-                <a href="../en/index.html">
-                  <img src="../assets/images/flags/flag-us.png" alt="flag-us"/> English
-                </a>
-              </li>
-              <li class="active">
-                <a href="../cn/index.html">
-                  <img src="../assets/images/flags/flag-cn.png" alt="flag-cn"/> Chinese
-                </a>
-              </li>
-            </ul>
-          </li>
+{{--          去除多语言--}}
+{{--          <li class="dropdown hover-line language-switcher">--}}
+{{--            <a href="../cn/index.h tml" class="dropdown-toggle" data-toggle="dropdown">--}}
+{{--              <img src="../assets/images/flags/flag-cn.png" alt="flag-cn"/> Chinese--}}
+{{--            </a>--}}
+{{--            <ul class="dropdown-menu languages">--}}
+{{--              <li>--}}
+{{--                <a href="../en/index.html">--}}
+{{--                  <img src="../assets/images/flags/flag-us.png" alt="flag-us"/> English--}}
+{{--                </a>--}}
+{{--              </li>--}}
+{{--              <li class="active">--}}
+{{--                <a href="../cn/index.html">--}}
+{{--                  <img src="../assets/images/flags/flag-cn.png" alt="flag-cn"/> Chinese--}}
+{{--                </a>--}}
+{{--              </li>--}}
+{{--            </ul>--}}
+{{--          </li>--}}
         </ul>
-        <a href="https://github.com/WebStackPage/WebStackPage.github.io" target="_blank"><img
-            style="position: absolute; top: 0; right: 0; border: 0;"
-            src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
       </nav>
       @foreach($categoryData as $category)
 

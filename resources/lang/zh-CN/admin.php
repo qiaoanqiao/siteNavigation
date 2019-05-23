@@ -99,4 +99,7 @@ return [
         'filter_placeholder' => '过滤',
     ],
     'menu_titles' => [],
+    'Roles' => '权限',
+    'Card' => '卡片',
+
 ];

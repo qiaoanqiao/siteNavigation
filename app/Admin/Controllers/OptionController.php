@@ -9,6 +9,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Tab;
 
 class OptionController extends Controller
 {
@@ -48,14 +49,12 @@ class OptionController extends Controller
      *
      * @param mixed $id
      * @param Content $content
-     * @return Content
+     *
+     * @return Form
      */
-    public function edit($id, Content $content)
+    public function edit($id)
     {
-        return $content
-            ->header('Edit')
-            ->description('description')
-            ->body($this->form()->edit($id));
+        return $this->form($id)->edit($id);
     }
 
     /**
@@ -75,19 +74,25 @@ class OptionController extends Controller
     /**
      * Make a grid builder.
      *
-     * @return Grid
+     * @return string
      */
     protected function grid()
     {
-        $grid = new Grid(new Option);
+        $tab = new Tab();
+        foreach(Option::all() as $option) {
+            if($option->parent_id === 0) {
+                $tab->add($option->name, $this->edit($option->id)->render());
+            }
 
-        $grid->id('Id');
-        $grid->name('Name');
-        $grid->value('Value');
-        $grid->created_at('Created at');
-        $grid->updated_at('Updated at');
+        }
 
-        return $grid;
+//        $grid->id('Id');
+//        $grid->name('Name');
+//        $grid->value('Value');
+//        $grid->created_at('Created at');
+//        $grid->updated_at('Updated at');
+
+        return $tab->render();
     }
 
     /**
@@ -109,17 +114,43 @@ class OptionController extends Controller
         return $show;
     }
 
+    public function store()
+    {
+    }
+
+    public function update($id)
+    {
+        dd(request()->all());
+    }
+
     /**
      * Make a form builder.
      *
      * @return Form
      */
-    protected function form()
+    protected function form($id)
     {
         $form = new Form(new Option);
+        $form->setAction(action([self::class, 'update'],
+            ['id' => $id]));
+        $childId = Option::buildSelectOptions([], $id);
+        $optionChildData = Option::query()->whereIn('id', array_keys($childId))->get();
+        $form->hasMany('children', function (Form\NestedForm $form) use ($optionChildData) {
+//            foreach ($optionChildData as $value) {
+//                $typeMethod = $value['type'];
+//                $form->$typeMethod($value['name'], $value['describe'])
+//                    ->value($value['value']);
+//            }
+//            $form->$typeMethod($value['name'], $value['describe'])
+//                ->value($value['value']);
+            foreach ($optionChildData as $value) {
+                $typeMethod = $value['type'];
+                $form->$typeMethod($value['name'], $value['describe'])
+                    ->value($value['value']);
+            }
+            //todo 待完成
+        });
 
-        $form->text('name', 'Name');
-        $form->text('value', 'Value');
 
         return $form;
     }

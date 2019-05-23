@@ -42,7 +42,7 @@ class Card extends Model
      */
     public static function accessToApiInterfaceCardInList(array $wheres)
     {
-        return joinCache(request()->route()->getAction('as'),
+        return accessToCache(request()->route()->getAction('as'),
             function () use ($wheres) {
                 return self::query()->where($wheres)->orderBy('order', 'desc')
                     ->get();
@@ -56,7 +56,7 @@ class Card extends Model
      */
     public function getRecommendationsCards()
     {
-        return joinCache('recommend_all_cards',
+        return accessToCache('recommend_all_cards',
             function () {
                 return self::query()
                     ->where('reco',
@@ -72,7 +72,7 @@ class Card extends Model
      */
     public function toObtainRecommendedCards()
     {
-        return joinCache('not_recommend_all_cards',
+        return accessToCache('not_recommend_all_cards',
             function () {
                 return self::query()
                     ->whereNotIn('reco',

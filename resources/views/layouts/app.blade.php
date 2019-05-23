@@ -6,10 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="author" content="viggo"/>
-  <title>@option('sitename'){{ isset($title) ? '-' . $title : '' }}</title>
+  <title>@option('site_name'){{ isset($title) ? '-' . $title : '' }}</title>
   <meta name="keywords"
-        content="@option('sitekeywords')">
-  <meta name="description" content="@option('sitedescription')">
+        content="@option('site_keywords')">
+  <meta name="description" content="@option('site_description')">
   <link rel="shortcut icon" href="@option('favicon')">
   @section('header_src_style')
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700,400italic">
@@ -32,17 +32,17 @@
   <!-- / FB Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="{!! !url('/') !!}">
-  <meta property="og:title" content="@option('sitename')">
+  <meta property="og:title" content="@option('site_name')">
   <meta property="og:description"
-        content="@option('sitedescription')">
-  <meta property="og:image" content="@option('sitelogo')">
-  <meta property="og:site_name" content="@option('sitename')">
+        content="@option('site_description')">
+  <meta property="og:image" content="@option('site_logo')">
+  <meta property="og:site_name" content="@option('site_name')">
   <!-- / Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="@option('sitename')">
+  <meta name="twitter:title" content="@option('site_name')">
   <meta name="twitter:description"
-        content="@option('sitedescription')">
-  <meta name="twitter:image" content="@option('sitelogo')">
+        content="@option('site_description')">
+  <meta name="twitter:image" content="@option('site_logo')">
 </head>
 
 <body class="@yield('body_class')">

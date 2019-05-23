@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 
 class PageDataController extends Controller
 {
+    /**
+     * 首页页面渲染
+     *
+     * @param  Request  $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function indexView(Request $request)
     {
         $data = $this->homePage($request);
@@ -18,9 +25,10 @@ class PageDataController extends Controller
         return view('index.index', $data);
     }
 
-    public function getIndexData() : array
-    {
 
+    public function aboutView()
+    {
+        return view('about.index');
     }
 
     /**
@@ -32,21 +40,23 @@ class PageDataController extends Controller
      */
     public function homePage(Request $request, $isApi = 0)
     {
-        $optionData = getOption('siteurl', 'homeurl', 'sitename',
-            'sitedescription', 'sitelogo', 'defaultlanguage');
+        $optionData = getOption('site_url', 'home_url', 'site_name',
+            'site_description', 'site_logo', 'default_language');
         $categoryModels = Category::with('cards')->Ordered()->get();
         $linkModels = Link::all();
-        $categoryData = (new CategoryCollection($categoryModels))->toArray($request);
+        $categoryData
+            = (new CategoryCollection($categoryModels))->toArray($request);
         $categoryDataTree = $this->getTree($categoryData);
-        if($isApi) {
+        if ($isApi) {
             $linkData = new LinkCollection($linkModels);
+
             return apiSuccessfulResponseData(compact('linkData', 'optionData',
                 'categoryData', 'categoryDataTree'));
         }
 
-        return compact('optionData', 'categoryDataTree', 'categoryData', 'linkModels');
+        return compact('optionData', 'categoryDataTree', 'categoryData',
+            'linkModels');
     }
-
 
     public function getTree($data = [], $parent_id = 0, $level = 0)
     {
@@ -54,7 +64,8 @@ class PageDataController extends Controller
         if ($data && is_array($data)) {
             foreach ($data as $v) {
                 if ($v['parent_id'] == $parent_id) {
-                    $v['children'] = $this->getTree($data, $v['id'], $level + 1);
+                    $v['children'] = $this->getTree($data, $v['id'],
+                        $level + 1);
                     $tree[] = $v;
                 }
             }

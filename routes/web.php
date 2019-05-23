@@ -11,4 +11,5 @@
 |
 */
 
-Route::get('/', 'PageDataController@indexView');
+Route::get('/index.html', 'PageDataController@indexView');
+Route::get('/about.html', 'PageDataController@aboutView');

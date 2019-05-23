@@ -21,7 +21,7 @@ class ColumnsCardsSeeder extends Seeder
             ->each(function ($category, $index) use (&$categorysParent) {
                 $boolean = random_int(0, 1);
                 if ($boolean && $index > 1) {
-                    $category->parent_id = $index - 1;
+                    $category->parent_id = $boolean;
                     $categorysParent[] = $category->parent_id;
                 } else {
                     $category->parent_id = 0;
@@ -36,7 +36,7 @@ class ColumnsCardsSeeder extends Seeder
 
         // 生成数据集合
         $cards = factory(\App\Models\Card::class)
-            ->times(20)
+            ->times(30)
             ->make()
             ->each(function ($card, $index) use ($categorysParent) {
                 $card->category_id = array_random($categorysParent);
@@ -44,7 +44,7 @@ class ColumnsCardsSeeder extends Seeder
         \App\Models\Card::query()->insert($cards->toArray());
 
         //友情链接表
-        $links = factory(Link::class)->times(50)->make()->each(function (
+        $links = factory(Link::class)->times(5)->make()->each(function (
             $link,
             $index
         ) {
@@ -53,7 +53,7 @@ class ColumnsCardsSeeder extends Seeder
 
         Link::insert($links->toArray());
 
-        $card_referees = factory(CardReferee::class)->times(50)->make()
+        $card_referees = factory(CardReferee::class)->times(10)->make()
             ->each(function ($card_referee, $index) {
 
             });
