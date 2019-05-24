@@ -59,7 +59,7 @@
                      data-toggle="tooltip" data-placement="bottom" title="{{$card['title']}}" data-original-title="{{$card['url']}}">
                   <div class="xe-comment-entry">
                     <a class="xe-user-img">
-                      <img src="{{$card['icon']}}" class="img-circle" width="40">
+                      <img src="{{staticUrl($card['logo'])}}" class="img-circle" width="40">
                     </a>
                     <div class="xe-comment">
                       <a href="#" class="xe-user-name overflowClip_1">

@@ -26,8 +26,8 @@ class OptionController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header('Index')
-            ->description('description')
+            ->header('网站配置')
+            ->description('')
             ->body($this->grid());
     }
 
@@ -41,10 +41,7 @@ class OptionController extends Controller
      */
     public function show($id, Content $content)
     {
-        return $content
-            ->header('Detail')
-            ->description('description')
-            ->body($this->detail($id));
+        return back();
     }
 
     /**
@@ -90,12 +87,6 @@ class OptionController extends Controller
 
         }
 
-//        $grid->id('Id');
-//        $grid->name('Name');
-//        $grid->value('Value');
-//        $grid->created_at('Created at');
-//        $grid->updated_at('Updated at');
-
         return $tab->render();
     }
 
@@ -119,10 +110,6 @@ class OptionController extends Controller
         return $show;
     }
 
-//    public function store()
-//    {
-//    }
-//
     /**
      * Update the specified resource in storage.
      *
@@ -133,16 +120,25 @@ class OptionController extends Controller
     public function update($id)
     {
         $requetInput = request()->except(['_token', '_method', '_previous_']);
-        foreach ($requetInput as $key =>  $value) {
-            $model = Option::query()->where('name', $key)->where('parent_id', $id)->first();
-            if(!empty($model)) {
-                if($model->value !== $value) {
-                    (new OptionController())->form($model->id, 1)->update($model->id);
+        \DB::beginTransaction();
+        try {
+            foreach ($requetInput as $key => $value) {
+                $model = Option::query()->where('name', $key)
+                    ->where('parent_id', $id)->first();
+                if (!empty($model)) {
+                    if ($model->value !== $value) {
+                        //模型事件updating配合完成更新
+                        $this->form($model->id, 1)->update($model->id);
+                    }
                 }
+
             }
             \DB::commit();
+        } catch (\Exception $e) {
+            \DB::rollback();
+            admin_toastr('更新失败', 'error');
         }
-        admin_toastr(trans('admin.save_succeeded'));
+        admin_toastr(trans('admin.update_succeeded'));
 
         return back();
     }
@@ -155,6 +151,14 @@ class OptionController extends Controller
     public function form($id, $isMethod = 0)
     {
         $form = new Form(new Option);
+        $form->disableEditingCheck();
+        $form->disableCreatingCheck();
+        $form->disableViewCheck();
+        $form->tools(function (Form\Tools $tools) {
+            $tools->disableDelete();
+            $tools->disableView();
+            $tools->disableList();
+        });
         $form->setAction(action([self::class, 'update'],
             ['id' => $id]));
         if($isMethod) {
@@ -167,12 +171,16 @@ class OptionController extends Controller
                 ->whereIn('id', array_keys($childId))->get();
             foreach ($optionChildData as $value) {
                 $typeMethod = $value['type'];
-                $form->$typeMethod($value['name'], $value['describe'])
-                    ->default($value['value']);
+                if($value['type'] === 'image' or $value['type'] === 'file') {
+                    $form->$typeMethod($value['name'], $value['describe'])
+                        ->value($value['value'])->default($value['value']);
+                } else {
+                    $form->$typeMethod($value['name'], $value['describe'])
+                        ->value($value['value'])->default($value['value']);
+                }
+
             }
         }
-
-
 
         return $form;
     }

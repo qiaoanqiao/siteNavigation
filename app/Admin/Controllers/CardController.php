@@ -101,7 +101,6 @@ class CardController extends Controller
         $grid->title('标题')->editable();
         $grid->describe('描述')->editable('textarea');
         $grid->url('网站地址')->editable();
-        $grid->icon('图标');
         $grid->logo('网站logo')->image('/', 100, 100);;
         $grid->category_id('分类')->editable('select',
             $this->TrimArray(Category::selectOptions()));
@@ -138,7 +137,6 @@ class CardController extends Controller
         $show->title('卡片标题');
         $show->describe('描述');
         $show->url('网站地址');
-        $show->icon('图标');
         $show->logo('网站logo');
         $show->category_id('分类');
         $show->label('标签');
@@ -163,8 +161,6 @@ class CardController extends Controller
         $form->text('title', '卡片标题')->rules('required');
         $form->textarea('describe', '描述')->rules('nullable');
         $form->url('url', '网站地址')->rules('required');
-        $form->icon('icon', trans('admin.icon'))->rules('nullable')->default('fa-bars')
-            ->rules('required')->help($this->iconHelp());
         $form->image('logo', '网站logo')->removable()->rules('required');
         $form->select('category_id', '分类')
             ->options(Category::selectOptions())->rules('required');

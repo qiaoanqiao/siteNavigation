@@ -102,3 +102,20 @@ function accessToCache(string $key, $callback, $ttl = 0)
     return Cache::remember($key, $ttl ?: getOption('cache_time'),
         $callback);
 }
+
+/**
+ * 静态文件驱动
+ *
+ * @param $path
+ *
+ * @return string
+ */
+function staticUrl($path) : string
+{
+    try {
+        return \Illuminate\Support\Facades\Storage::disk(env('STATIC_FILES_DRIVE'))
+            ->url($path) ?: '';
+    } catch (Exception $e) {
+        return '';
+    }
+}

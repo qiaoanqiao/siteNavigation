@@ -10,7 +10,7 @@ class Option extends Model
 {
     use ModelTree, AdminBuilder;
 
-    protected $fillable = ['name', 'value'];
+    protected $fillable = ['name', 'value', 'type', 'describe', 'order'];
 
     public function __construct(array $attributes = [])
     {
