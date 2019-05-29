@@ -101,7 +101,7 @@ class CardController extends Controller
         $grid->title('标题')->editable();
         $grid->describe('描述')->editable('textarea');
         $grid->url('网站地址')->editable();
-        $grid->logo('网站logo')->image('/', 100, 100);;
+        $grid->logo('网站logo')->image('/uploads/', 50, 50);
         $grid->category_id('分类')->editable('select',
             $this->TrimArray(Category::selectOptions()));
         $grid->label('标签')->label();
@@ -157,14 +157,13 @@ class CardController extends Controller
     protected function form()
     {
         $form = new Form(new Card);
-
         $form->text('title', '卡片标题')->rules('required');
         $form->textarea('describe', '描述')->rules('nullable');
         $form->url('url', '网站地址')->rules('required');
-        $form->image('logo', '网站logo')->removable()->rules('required');
+        $form->image('logo', '网站logo');
         $form->select('category_id', '分类')
             ->options(Category::selectOptions())->rules('required');
-        $form->text('label', '标签')->help('英文逗号","分隔')->rules('nullable');
+        $form->tags('label', '标签')->help('英文逗号","分隔')->rules('nullable');
         $form->number('like', '喜欢人数');
         $form->number('order', '排序');
         $form->number('clicks', '点击数');
