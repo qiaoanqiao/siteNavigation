@@ -71,11 +71,11 @@ return [
      */
     'upload'                    => [
         // 对应 filesystem.php 中的 disks
-        'disk' => 'public',
+        'disk' => 'admin',
 
         'directory' => [
-            'image' => 'images',
-            'file'  => 'files',
+            'image' => 'uploads/images',
+            'file'  => 'uploads/files',
         ],
     ],
 
